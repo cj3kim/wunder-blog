@@ -291,10 +291,62 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2014/03/19/middleware-in-nodejs/" data-id="zwvp94yvd7dxpwzo" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2014/03/19/middleware-in-nodejs/" data-id="7q5kk5dceo0kjvmu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/middleware/">middleware</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-how-does-expressstatic()-work" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/11/how-does-expressstatic()-work/" class="article-date">
+  <time datetime="2014-03-11T18:13:12.000Z" itemprop="datePublished">Mar 11 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/11/how-does-expressstatic()-work/">How does express.static() work?</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>app.use(express.static(‘public’));</p>
+<p>express.static(‘public’) makes the contents of the public  directory available at the root domain. I suspect it utilizes metacode to retrieve said public assets.  The algorithm is probably structured like this:</p>
+<ol>
+<li>Parse out the file name from a request</li>
+<li>Check for the existence of the requested file</li>
+<li>If it exists, serve it through a response</li>
+<li>If it doesn’t exist, respond with a 404</li>
+</ol>
+<p>is like:</p>
+<pre><code>app.<span class="keyword">get</span>(‘/application.css’, <span class="function"><span class="keyword">function</span> <span class="params">(req,res)</span> {</span>
+  fs.readFile(‘./views/index.html’, <span class="function"><span class="keyword">function</span><span class="params">(err, data)</span> {</span>
+      res.send(data.toString());
+   })
+});
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.wundercode.net/2014/03/11/how-does-expressstatic()-work/" data-id="0glt8eyjgrmhydpd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express, node/">express, node</a></li></ul>
 
     </footer>
   </div>
@@ -314,7 +366,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hardware/">hardware</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/middleware/">middleware</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/express, node/">express, node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hardware/">hardware</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/middleware/">middleware</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -323,7 +375,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/hardware/" style="font-size: 20.00px;">hardware</a><a href="/tags/middleware/" style="font-size: 10.00px;">middleware</a>
+      <a href="/tags/express, node/" style="font-size: 10.00px;">express, node</a><a href="/tags/hardware/" style="font-size: 20.00px;">hardware</a><a href="/tags/middleware/" style="font-size: 10.00px;">middleware</a>
     </div>
   </div>
 
@@ -332,7 +384,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03">March 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02">February 2013</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03">March 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02">February 2013</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -345,6 +397,10 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
         
           <li>
             <a href="/2014/03/19/middleware-in-nodejs/">Middleware in NodeJS</a>
+          </li>
+        
+          <li>
+            <a href="/2014/03/11/how-does-expressstatic()-work/">How does express.static() work?</a>
           </li>
         
           <li>

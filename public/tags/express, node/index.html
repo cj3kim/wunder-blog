@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2013 | Tech Musings</title>
+  <title>Tag: express, node | Tech Musings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="og:type" content="blog">
 <meta name="og:title">
-<meta name="og:url" content="http://blog.wundercode.net/archives/2013/">
+<meta name="og:url" content="http://blog.wundercode.net/tags/express, node/">
 <meta name="og:image">
 <meta name="og:site_name" content="Tech Musings">
 <meta name="og:description">
@@ -63,10 +63,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-transistors" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-how-does-expressstatic()-work" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2013/03/04/transistors/" class="article-date">
-  <time datetime="2013-03-04T19:04:03.000Z" itemprop="datePublished">Mar 4 2013</time>
+    <a href="/2014/03/11/how-does-expressstatic()-work/" class="article-date">
+  <time datetime="2014-03-11T18:13:12.000Z" itemprop="datePublished">Mar 11 2014</time>
 </a>
     
   </div>
@@ -77,7 +77,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2013/03/04/transistors/">Transistors</a>
+      <a class="article-title" href="/2014/03/11/how-does-expressstatic()-work/">How does express.static() work?</a>
     </h1>
   
 
@@ -85,99 +85,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>A transistor is the basic building block of a CPU. It represents a binary value of either 0 or 1. The value is called a bit. </p>
-<p>If a current passes through the transistor, it is turned on and represents 1. If it no current passes, it is turned off and represents 0. </p>
-<p>Transistors which are grouped together are called logic gates.</p>
-
+        <p>app.use(express.static(‘public’));</p>
+<p>express.static(‘public’) makes the contents of the public  directory available at the root domain. I suspect it utilizes metacode to retrieve said public assets.  The algorithm is probably structured like this:</p>
+<ol>
+<li>Parse out the file name from a request</li>
+<li>Check for the existence of the requested file</li>
+<li>If it exists, serve it through a response</li>
+<li>If it doesn’t exist, respond with a 404</li>
+</ol>
+<p>is like:</p>
+<pre><code>app.<span class="keyword">get</span>(‘/application.css’, <span class="function"><span class="keyword">function</span> <span class="params">(req,res)</span> {</span>
+  fs.readFile(‘./views/index.html’, <span class="function"><span class="keyword">function</span><span class="params">(err, data)</span> {</span>
+      res.send(data.toString());
+   })
+});
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2013/03/04/transistors/" data-id="z92fiabr0gvlgo9m" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2014/03/11/how-does-expressstatic()-work/" data-id="0glt8eyjgrmhydpd" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hardware/">hardware</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express, node/">express, node</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-random-access-memory-(ram)" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/03/04/random-access-memory-(ram)/" class="article-date">
-  <time datetime="2013-03-04T19:02:40.000Z" itemprop="datePublished">Mar 4 2013</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/03/04/random-access-memory-(ram)/">Random Access Memory (RAM)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>RAM has address lines on it, which are connected to a series of transistors and capacitors. The purpose of the address line is to turn its transistors on or off. When the transistor is turned on, it is connected to its capacitor and dateline. </p>
-<p>Data lines are connected to the CPU and are used to to read or write data. </p>
-<p>To write data, the CPU sends an electrical charge to an address line to open all the transistors connected to it. It then sends a pulse of electricity through the relevant data lines to charge the capacitors. In this way, though all the transistors are closed, only certain capacitors are charged. In this example, each address line has eight transistors and capacitors (8 bits) which store a byte of data. </p>
-<p>To read data, the CPU sends out a charge to an address line to open all the transistors connect to it. The capacitors then discharge into the data lines through the transistors. In this way, the CPU is able to read the values of the bits; it will interpret a discharged charge as the binary value of 1 and no discharge as 0. </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2013/03/04/random-access-memory-(ram)/" data-id="ziism0xxk4jxklg2" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hardware/">hardware</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-why-partnerships-are-sometimes-crappy" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/02/13/why-partnerships-are-sometimes-crappy/" class="article-date">
-  <time datetime="2013-02-13T19:10:37.000Z" itemprop="datePublished">Feb 13 2013</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/02/13/why-partnerships-are-sometimes-crappy/">Why Partnerships are Sometimes Crappy</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Ah, partnerships. Joint ventures in which people pool their resources together to achieve a business goal. </p>
-<p>I believe partnerships can be good as long as the responsibilities of each partner is spelled out in a contract. </p>
-<p>Often, people may say, “We don’t need contracts. All I need you to do is trust me”. I disagree with this statement because it requires business partners to expose financial vulnerabilities to each other. With a contract, trust is not necessary and expectations are set in proverbial stone. This is why I like them. People tend to ‘forget’ less when their word is written down.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2013/02/13/why-partnerships-are-sometimes-crappy/" data-id="u3mg8fwf97mzqtcp" class="article-share-link">Share</a>
-      
-      
     </footer>
   </div>
   
