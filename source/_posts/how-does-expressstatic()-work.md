@@ -1,6 +1,6 @@
 title: How does express.static() work?
 date: 2014-03-11 11:13:12
-tags: express, node
+tags: express
 ---
 app.use(express.static(‘public’));
 
