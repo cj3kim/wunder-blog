@@ -59,10 +59,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-middleware-in-nodejs" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/03/18/hello-world/" class="article-date">
-  <time datetime="2014-03-19T00:53:49.000Z" itemprop="datePublished">Mar 18 2014</time>
+    <a href="/2014/03/19/middleware-in-nodejs/" class="article-date">
+  <time datetime="2014-03-19T07:23:29.000Z" itemprop="datePublished">Mar 19 2014</time>
 </a>
     
   </div>
@@ -73,7 +73,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/03/18/hello-world/">Hello World</a>
+      <a class="article-title" href="/2014/03/19/middleware-in-nodejs/">Middleware in NodeJS</a>
     </h1>
   
 
@@ -81,14 +81,217 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="http://zespia.tw/hexo" target="_blank">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs" target="_blank">documentation</a> to learn how to use.</p>
+        <p>From a web development perspective, middleware is a pipe (or series of pipes) that can read, update, or respond to in-transit HTTP requests before they reach their intended destination/route (ie. HTTP GET Request to www.wundercode.net/about). If you understand how it works, you can do infinitely fun and useful things with it. </p>
+<p>In ExpressJS, we can register custom or prebuilt middleware functions to the application  as a callback with the use() method. Note that middleware functions take a request, response, and next object as parameters. I will explain what ‘next’ does later.</p>
+<p>Let’s start with an example. When someone visits www.wundercode.net their request will be handled by the route below. </p>
+<pre><code>app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> {</span>
+  fs.readFile(<span class="string">'./views/index.html'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(err, data)</span> {</span>
+    res.send(data.toString());
+  });
+}); 
+</code></pre><p>But, before the request is sent to that route, it will first go through our middleware function.</p>
+<pre><code><span class="keyword">var</span> randomString = <span class="string">"Chris-"</span>;
 
+app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span> <span class="params">(req, res, next)</span> {</span>
+  res.random = randomString;
+  console.log(<span class="string">"1st random string: "</span> + res.random);
+  console.log(<span class="string">"I think middleware"</span>);
+  next();
+});
+</code></pre><p>In the above example, I wrote middleware that assigns ‘randomString’ to res.random. I then pass the request/response objects onto the next middleware/route in queue by calling next. If I do not call next, the request/response objects will not be passed on and now more middleware will be triggered.</p>
+<p>The use method takes two parameters; an optional path and middleware function. By default, if you do not set the path option, all requests will be processed by middleware. If you decided to assign path a value, only requests with a host header value of path will be processed for the related middleware function.  </p>
+<p>If you want only one middleware function to trigger for a specific route, make sure to call use(path, yourMiddleware) first before any others. Express will generate a chain of middleware that your request will go through based on the order of use calls.  </p>
+<p>Let’s go through another example to hammer it in: </p>
+<pre><code>app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span> <span class="params">(req, res, next)</span> {</span>
+  res.random = randomString;
+  console.log(<span class="string">"1st random string: "</span> + res.random);
+  console.log(<span class="string">"I think middle ware"</span>);
+  next();
+});
+
+<span class="comment">//more middleware here similar to the ones </span>
+<span class="comment">//directly located below and above this comment</span>
+
+app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span> <span class="params">(req, res, next)</span> {</span>
+  res.random += <span class="string">"456"</span>
+  console.log(<span class="string">"4th random string: "</span> + res.random);
+  console.log(<span class="string">"through pipes"</span>);
+  next();
+});
+
+app.<span class="keyword">use</span>(<span class="string">'/application.css'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> {</span>
+  console.log(<span class="string">"Processing application css"</span>);
+});
+
+app.<span class="keyword">use</span>(<span class="string">'/application.js'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> {</span>
+  console.log(<span class="string">"Processing application js"</span>);
+});
+</code></pre><p>The output when a request to www.wundercode.net occurs: </p>
+<pre><code><span class="number">1</span>st <span class="built_in">random</span> <span class="keyword">string</span>: Chris-
+I think middleware
+<span class="number">2</span>nd <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123</span>
+is like <span class="operator">a</span> stream
+<span class="number">3</span>rd <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123456</span>
+that flows <span class="operator">and</span> flows <span class="operator">and</span> flows
+<span class="number">4</span>th <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123456456</span>
+through pipes
+Served index.html <span class="keyword">at</span> Tue Mar <span class="number">11</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">23</span>:<span class="number">49</span> GMT-<span class="number">0700</span> (PDT)
+
+<span class="number">1</span>st <span class="built_in">random</span> <span class="keyword">string</span>: Chris-
+I think middleware
+<span class="number">2</span>nd <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123</span>
+is like <span class="operator">a</span> stream
+<span class="number">3</span>rd <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123456</span>
+that flows <span class="operator">and</span> flows <span class="operator">and</span> flows
+<span class="number">4</span>th <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123456456</span>
+through pipes
+Processing application css
+
+<span class="number">1</span>st <span class="built_in">random</span> <span class="keyword">string</span>: Chris-
+I think middleware
+<span class="number">2</span>nd <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123</span>
+is like <span class="operator">a</span> stream
+<span class="number">3</span>rd <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123456</span>
+that flows <span class="operator">and</span> flows <span class="operator">and</span> flows
+<span class="number">4</span>th <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123456456</span>
+through pipes
+Processing application js
+</code></pre><p>I will walk you through what just happened:</p>
+<ol>
+<li>When the http GET request for www.wundercode.net hits the server, it runs it through the middleware we set.</li>
+<li>The middleware for /application.js and /application.css isn’t triggered because the request’s header value for host doesn’t contain the path /application.js and /application.css.</li>
+<li>Once the request reaches the route, the server responds with index.html.</li>
+<li>Index.html contains link tags to /application.js and /application.css and the browser will request for those resources as the dom is being rendered.</li>
+</ol>
+<p>As you can see, asset (css, js, images, etc) requests will be processed by most of the middleware stack with this configuration, which is what we don’t want. We want asset requests to be only processed by asset middleware. </p>
+<p>The next example shows you why order matters and how the next() function comes into play. As you can see, the middleware for css and js assets are sandwiched between the middleware that console logs random strings.  Our expectation is any request on /application.css or /application.js will now only trigger the first two randomString middleware because of the way we structured the use() method calls. </p>
+<pre><code>app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span> <span class="params">(req, res, next)</span> {</span>
+  res.random = randomString;
+  console.log(<span class="string">"1st random string: "</span> + res.random);
+  console.log(<span class="string">"I think middle ware"</span>);
+  next();
+});
+
+app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span> <span class="params">(req, res, next)</span> {</span>
+  res.random += <span class="string">"123"</span>
+  console.log(<span class="string">"2nd random string: "</span> + res.random);
+  console.log(<span class="string">"is like a stream"</span>);
+  next();
+});
+
+app.<span class="keyword">use</span>(<span class="string">'/application.css'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> {</span>
+  console.log(<span class="string">"Processing application css"</span>);
+});
+
+app.<span class="keyword">use</span>(<span class="string">'/application.js'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> {</span>
+  console.log(<span class="string">"Processing application js"</span>);
+});
+
+app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span> <span class="params">(req, res, next)</span> {</span>
+  res.random += <span class="string">"456"</span>
+  console.log(<span class="string">"3rd random string: "</span> + res.random);
+  console.log(<span class="string">"that flows and flows and flows"</span>);
+  next();
+});
+
+app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span> <span class="params">(req, res, next)</span> {</span>
+  res.random += <span class="string">"456"</span>
+  console.log(<span class="string">"4th random string: "</span> + res.random);
+  console.log(<span class="string">"through pipes"</span>);
+  next();
+});
+</code></pre><p>Our hunch was correct! The result should be:</p>
+<pre><code><span class="number">1</span>st <span class="built_in">random</span> <span class="keyword">string</span>: Chris-
+I think <span class="keyword">middle</span> ware
+<span class="number">2</span>nd <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123</span>
+is like <span class="operator">a</span> stream
+<span class="number">3</span>rd <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123456</span>
+that flows <span class="operator">and</span> flows <span class="operator">and</span> flows
+<span class="number">4</span>th <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123456456</span>
+through pipes
+Served index.html <span class="keyword">at</span> Tue Mar <span class="number">11</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">26</span>:<span class="number">10</span> GMT-<span class="number">0700</span> (PDT)
+
+<span class="number">1</span>st <span class="built_in">random</span> <span class="keyword">string</span>: Chris-
+I think <span class="keyword">middle</span> ware
+<span class="number">2</span>nd <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123</span>
+is like <span class="operator">a</span> stream
+Processing application css
+
+<span class="number">1</span>st <span class="built_in">random</span> <span class="keyword">string</span>: Chris-
+I think <span class="keyword">middle</span> ware
+<span class="number">2</span>nd <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123</span>
+is like <span class="operator">a</span> stream
+Processing application js
+</code></pre><p>Finally, our expectation now is an asset requests will only trigger related asset middleware with this configuration. </p>
+<pre><code>app.<span class="keyword">use</span>(<span class="string">'/application.css'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> {</span>
+  console.log(<span class="string">"Processing application css"</span>);
+});
+
+app.<span class="keyword">use</span>(<span class="string">'/application.js'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> {</span>
+  console.log(<span class="string">"Processing application js"</span>);
+});
+
+app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span> <span class="params">(req, res, next)</span> {</span>
+  res.random = randomString;
+  console.log(<span class="string">"1st random string: "</span> + res.random);
+  console.log(<span class="string">"I think middle ware"</span>);
+  next();
+});
+
+app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span> <span class="params">(req, res, next)</span> {</span>
+  res.random += <span class="string">"123"</span>
+  console.log(<span class="string">"2nd random string: "</span> + res.random);
+
+  console.log(<span class="string">"is like a stream"</span>);
+  next();
+});
+
+<span class="comment">//more middleware here similar to the ones </span>
+<span class="comment">//directly located below and above this comment</span>
+
+app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span> <span class="params">(req, res, next)</span> {</span>
+  res.random += <span class="string">"456"</span>
+  console.log(<span class="string">"4th random string: "</span> + res.random);
+
+  console.log(<span class="string">"through pipes"</span>);
+  next();
+});
+</code></pre><p>It works! The result:</p>
+<pre><code><span class="number">1</span>st <span class="built_in">random</span> <span class="keyword">string</span>: Chris-
+I think <span class="keyword">middle</span> ware
+<span class="number">2</span>nd <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123</span>
+is like <span class="operator">a</span> stream
+<span class="number">3</span>rd <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123456</span>
+that flows <span class="operator">and</span> flows <span class="operator">and</span> flows
+<span class="number">4</span>th <span class="built_in">random</span> <span class="keyword">string</span>: Chris-<span class="number">123456456</span>
+through pipes
+Served index.html <span class="keyword">at</span> Tue Mar <span class="number">11</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">28</span>:<span class="number">09</span> GMT-<span class="number">0700</span> (PDT)
+
+Processing application css
+
+Processing application js
+</code></pre><p>So, what is the point? The ordering of your middleware is very important<br>in express that middleware is fun and conceptually simple!</p>
+<p>Please email me at chris@wundercode.net if you have any questions or comments.</p>
+<p>P.S. Here’s a nice example of where middleware can also hijack requests and send its own responses:</p>
+<pre><code>app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span> <span class="params">(req, res, next)</span> {</span>
+  console.log(<span class="string">"I'm an angry middleware and I'm going to block all access to the site!"</span>);
+  res.send(<span class="string">"You're blocked because middleware is angry!"</span>);
+});
+
+app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> {</span>
+  fs.readFile(<span class="string">'./views/index.html'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(err, data)</span> {</span>
+    res.send(data.toString());
+  });
+});
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/03/18/hello-world/" data-id="r7mb1sxyi6eye56s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/03/19/middleware-in-nodejs/" data-id="oh8ik0wjgmlm712v" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/middleware/">middleware</a></li></ul>
+
     </footer>
   </div>
   
@@ -104,8 +307,22 @@
     
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/middleware/">middleware</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/middleware/" style="font-size: NaNpx;">middleware</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -123,7 +340,7 @@
       <ul>
         
           <li>
-            <a href="/2014/03/18/hello-world/">Hello World</a>
+            <a href="/2014/03/19/middleware-in-nodejs/">Middleware in NodeJS</a>
           </li>
         
       </ul>
