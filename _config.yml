@@ -101,4 +101,5 @@ stylus:
 # Deployment
 ## Docs: http://zespia.tw/hexo/docs/deployment.html
 deploy:
-  type:
+  type: heroku
+  repo: git@heroku.com:wunder-blog.git
