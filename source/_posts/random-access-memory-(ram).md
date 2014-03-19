@@ -1,5 +1,5 @@
 title: Random Access Memory (RAM)
-date: 2014-03-19 11:02:40
+date: 2013-03-04 11:02:40
 tags: hardware
 ---
 
