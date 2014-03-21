@@ -99,7 +99,7 @@ app.<span class="keyword">use</span>(<span class="function"><span class="keyword
   next();
 });
 </code></pre><p>In the above example, I wrote middleware that assigns ‘randomString’ to res.random. I then pass the request/response objects onto the next middleware/route in queue by calling next. If I do not call next, the request/response objects will not be passed on and now more middleware will be triggered.</p>
-<p>The use method takes two parameters; an optional path and middleware function. By default, if you do not set the path option, all requests will be processed by middleware. If you decided to assign path a value, only requests with a host header value of path will be processed for the related middleware function.  </p>
+<p>The use method takes two parameters; an optional path and middleware<br>function. By default, if you do not set the path option, all requests<br>will be processed by middleware. If you decided to assign path a value,<br>only requests with a Request-URI header will be processed for the related middleware function.  </p>
 <p>If you want only one middleware function to trigger for a specific route, make sure to call use(path, yourMiddleware) first before any others. Express will generate a chain of middleware that your request will go through based on the order of use calls.  </p>
 <p>Let’s go through another example to hammer it in: </p>
 <pre><code>app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span> <span class="params">(req, res, next)</span> {</span>
@@ -159,7 +159,7 @@ Processing application js
 </code></pre><p>I will walk you through what just happened:</p>
 <ol>
 <li>When the http GET request for www.wundercode.net hits the server, it runs it through the middleware we set.</li>
-<li>The middleware for /application.js and /application.css isn’t triggered because the request’s header value for host doesn’t contain the path /application.js and /application.css.</li>
+<li>The middleware for /application.js and /application.css isn’t<br>triggered because the request’s header value for the Request-URI<br>header doesn’t contain the path /application.js and /application.css.</li>
 <li>Once the request reaches the route, the server responds with index.html.</li>
 <li>Index.html contains link tags to /application.js and /application.css and the browser will request for those resources as the dom is being rendered.</li>
 </ol>
@@ -287,7 +287,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/03/19/middleware-in-nodejs/" data-id="oh8ik0wjgmlm712v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/03/19/middleware-in-nodejs/" data-id="8icq7zg741nphx14" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/middleware/">middleware</a></li></ul>
@@ -310,7 +310,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/middleware/">middleware</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/express, node/">express, node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/middleware/">middleware</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -319,7 +319,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/middleware/" style="font-size: NaNpx;">middleware</a>
+      <a href="/tags/express, node/" style="font-size: NaNpx;">express, node</a><a href="/tags/middleware/" style="font-size: NaNpx;">middleware</a>
     </div>
   </div>
 
@@ -328,7 +328,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -338,6 +338,10 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2014/03/21/how-does-requestpipe(response)-work/">How does request.pipe(response) work?</a>
+          </li>
         
           <li>
             <a href="/2014/03/19/middleware-in-nodejs/">Middleware in NodeJS</a>
