@@ -88,7 +88,7 @@
         <pre><code>readableStream.<span class="keyword">pipe</span>(writeableStream);
 request.<span class="keyword">pipe</span>(response);
 </code></pre><p>The code above is so beatiful, but how does it work? Once the request<br>stream is done piping data, the response stream will shoot off its<br>headers and payload. But, how does it know how to do that?</p>
-<p>We know that request/response inherit from the Stream interface, which,<br>in turn, inherits from EventEmitter. Readable streams have two very<br>important events called ‘data’ and ‘end’</p>
+<p>We know that request/response inherit from the Stream interface, which,<br>in turn, inherits from EventEmitter. Readable streams have two very<br>important events called ‘data’ and ‘end’. Writable streams has an event<br>called ‘finish’. When the readable stream finishes piping to writable<br>stream, the writable stream emits the event ‘finish’.</p>
 <p>Let’s do an experiment:</p>
 <pre><code><span class="keyword">var</span> writeStream = <span class="keyword">new</span> fs.WriteStream(<span class="string">"write.txt"</span>);
 writeStream.on(<span class="string">'finish'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
@@ -101,13 +101,12 @@ readStream.pipe(writeStream);
 </code></pre><p>Result:</p>
 <pre><code><span class="string">"I am called when the readable stream has finished piping"</span>
 </code></pre><p>Looks like it works!</p>
-<p>I will write more details about this topic later.</p>
 <p>You can read more about streams at nodejs.org/api/stream.html and<br>nodeschool.io.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2014/03/21/how-does-requestpipe(response)-work/" data-id="agcjtv3lq3p9333n" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2014/03/21/how-does-requestpipe(response)-work/" data-id="3yeztwsho95i53qe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express, node/">express, node</a></li></ul>
@@ -347,7 +346,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2014/03/19/middleware-in-nodejs/" data-id="eqx98q7z65bew5oj" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2014/03/19/middleware-in-nodejs/" data-id="o3cl9cieylr22fxk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/middleware/">middleware</a></li></ul>
@@ -399,7 +398,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2014/03/11/how-does-expressstatic()-work/" data-id="92zx7qfi9f6m0pa0" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2014/03/11/how-does-expressstatic()-work/" data-id="cedvfz336lszc4x1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express/">express</a></li></ul>
@@ -440,7 +439,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2013/03/04/transistors/" data-id="nmp87ooblmoh3hgl" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2013/03/04/transistors/" data-id="s0bmmlk51syd46fd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hardware/">hardware</a></li></ul>
@@ -482,7 +481,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2013/03/04/random-access-memory-(ram)/" data-id="tr5t75omq5dxm3wh" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2013/03/04/random-access-memory-(ram)/" data-id="r8utvw8hu6orqho8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hardware/">hardware</a></li></ul>
@@ -523,7 +522,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2013/02/13/why-partnerships-are-sometimes-crappy/" data-id="36m08ahxvf3mjwk3" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2013/02/13/why-partnerships-are-sometimes-crappy/" data-id="34qb3lfd9lwzt1l2" class="article-share-link">Share</a>
       
       
     </footer>

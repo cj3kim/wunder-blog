@@ -12,7 +12,9 @@ headers and payload. But, how does it know how to do that?
 
 We know that request/response inherit from the Stream interface, which,
 in turn, inherits from EventEmitter. Readable streams have two very
-important events called 'data' and 'end'
+important events called 'data' and 'end'. Writable streams has an event
+called 'finish'. When the readable stream finishes piping to writable
+stream, the writable stream emits the event 'finish'.
 
 
 Let's do an experiment:
@@ -33,7 +35,6 @@ Result:
 
 Looks like it works!
 
-I will write more details about this topic later.
 
 You can read more about streams at nodejs.org/api/stream.html and
 nodeschool.io.
