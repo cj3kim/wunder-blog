@@ -29,7 +29,10 @@ But, before the request is sent to that route, it will first go through our midd
 
 In the above example, I wrote middleware that assigns 'randomString' to res.random. I then pass the request/response objects onto the next middleware/route in queue by calling next. If I do not call next, the request/response objects will not be passed on and now more middleware will be triggered.
 
-The use method takes two parameters; an optional path and middleware function. By default, if you do not set the path option, all requests will be processed by middleware. If you decided to assign path a value, only requests with a host header value of path will be processed for the related middleware function.  
+The use method takes two parameters; an optional path and middleware
+function. By default, if you do not set the path option, all requests
+will be processed by middleware. If you decided to assign path a value,
+only requests with a Request-URI header will be processed for the related middleware function.  
 
 If you want only one middleware function to trigger for a specific route, make sure to call use(path, yourMiddleware) first before any others. Express will generate a chain of middleware that your request will go through based on the order of use calls.  
 
@@ -95,7 +98,9 @@ The output when a request to www.wundercode.net occurs:
 I will walk you through what just happened:
 
 1.  When the http GET request for www.wundercode.net hits the server, it runs it through the middleware we set.
-2.  The middleware for /application.js and /application.css isn't triggered because the request's header value for host doesn't contain the path /application.js and /application.css.
+2.  The middleware for /application.js and /application.css isn't
+    triggered because the request's header value for the Request-URI
+header doesn't contain the path /application.js and /application.css.
 3.  Once the request reaches the route, the server responds with index.html.
 4.  Index.html contains link tags to /application.js and /application.css and the browser will request for those resources as the dom is being rendered.
 
