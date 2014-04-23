@@ -3,15 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Transistors | Tech Musings</title>
+  <title>Archives: 2014/4 | Tech Musings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="og:type" content="blog">
-<meta name="og:title" content="Transistors">
-<meta name="og:url" content="http://blog.wundercode.net/2013/03/04/transistors/">
+<meta name="og:title">
+<meta name="og:url" content="http://blog.wundercode.net/archives/2014/04/">
 <meta name="og:image">
 <meta name="og:site_name" content="Tech Musings">
-<meta name="og:description" content="A transistor is the basic building block of a CPU. It represents a binary value of either 0 or 1. The value is called a bit. 
-If a current passes through the transistor, it is turned on and represents">
+<meta name="og:description">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Tech Musings" type="application/atom+xml">
@@ -62,10 +61,12 @@ If a current passes through the transistor, it is turned on and represents">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-transistors" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-famous-js-breaks-without-css-file" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2013/03/04/transistors/" class="article-date">
-  <time datetime="2013-03-04T19:04:03.000Z" itemprop="datePublished">Mar 4 2013</time>
+    <a href="/2014/04/23/famous-js-breaks-without-css-file/" class="article-date">
+  <time datetime="2014-04-23T07:51:55.000Z" itemprop="datePublished">Apr 23 2014</time>
 </a>
     
   </div>
@@ -75,8 +76,8 @@ If a current passes through the transistor, it is turned on and represents">
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      Transistors
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/23/famous-js-breaks-without-css-file/">Famous JS breaks without CSS File</a>
     </h1>
   
 
@@ -84,44 +85,45 @@ If a current passes through the transistor, it is turned on and represents">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>A transistor is the basic building block of a CPU. It represents a binary value of either 0 or 1. The value is called a bit. </p>
-<p>If a current passes through the transistor, it is turned on and represents 1. If it no current passes, it is turned off and represents 0. </p>
-<p>Transistors which are grouped together are called logic gates.</p>
+        <p>I spent the last three hours figuring out why there was a bug in my<br>famous code. It turns out famous.css, found in core/, is a hard<br>requirement for the famous code to work. I did not know this and I<br>learned the hard way.</p>
+<p>When the CSS was not linked in the header, I could never set a 100%<br>height on a famous-surface by using ‘undefined’ in size: [200,<br>undefined]. </p>
+<pre><code><span class="built_in">require</span>(<span class="string">'./famous-polyfills/index'</span>);
 
+<span class="built_in">require</span>(<span class="string">'domready'</span>)(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+  <span class="keyword">var</span> Engine = <span class="built_in">require</span>(<span class="string">'./famous/core/Engine'</span>);
+  <span class="keyword">var</span> ImageSurface = <span class="built_in">require</span>(<span class="string">'./famous/surfaces/ImageSurface'</span>);
+  <span class="keyword">var</span> Surface = <span class="built_in">require</span>(<span class="string">'./famous/core/Surface'</span>);
+  <span class="keyword">var</span> StateModifier = <span class="built_in">require</span>(<span class="string">'./famous/modifiers/StateModifier'</span>);
+  <span class="keyword">var</span> ContainerSurface = <span class="built_in">require</span>(<span class="string">'./famous/surfaces/ContainerSurface'</span>);
+
+  <span class="comment">// create the main context</span>
+  <span class="keyword">var</span> mainContext = Engine.createContext();
+
+  <span class="keyword">var</span> surface = <span class="keyword">new</span> Surface({
+     size: [<span class="literal">undefined</span>, <span class="literal">undefined</span>],
+     properties: {
+       backgroundColor: <span class="string">'blue'</span>,
+       color: <span class="string">'red'</span>,
+     }
+  });
+
+  mainContext.add(surface);
+});
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2013/03/04/transistors/" data-id="4spgrd0qsy8pi58e" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2014/04/23/famous-js-breaks-without-css-file/" data-id="0687d88b5mkpu6qx" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hardware/">hardware</a></li></ul>
-
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/2014/03/11/how-does-expressstatic()-work/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          How does express.static() work?
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2013/03/04/random-access-memory-(ram)/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Random Access Memory (RAM)</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
+
+  
+  
 </section>
         
           <aside id="sidebar">

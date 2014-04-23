@@ -63,6 +63,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-famous-js-breaks-without-css-file" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/23/famous-js-breaks-without-css-file/" class="article-date">
+  <time datetime="2014-04-23T07:51:55.000Z" itemprop="datePublished">Apr 23 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/23/famous-js-breaks-without-css-file/">Famous JS breaks without CSS File</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I spent the last three hours figuring out why there was a bug in my<br>famous code. It turns out famous.css, found in core/, is a hard<br>requirement for the famous code to work. I did not know this and I<br>learned the hard way.</p>
+<p>When the CSS was not linked in the header, I could never set a 100%<br>height on a famous-surface by using ‘undefined’ in size: [200,<br>undefined]. </p>
+<pre><code><span class="built_in">require</span>(<span class="string">'./famous-polyfills/index'</span>);
+
+<span class="built_in">require</span>(<span class="string">'domready'</span>)(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+  <span class="keyword">var</span> Engine = <span class="built_in">require</span>(<span class="string">'./famous/core/Engine'</span>);
+  <span class="keyword">var</span> ImageSurface = <span class="built_in">require</span>(<span class="string">'./famous/surfaces/ImageSurface'</span>);
+  <span class="keyword">var</span> Surface = <span class="built_in">require</span>(<span class="string">'./famous/core/Surface'</span>);
+  <span class="keyword">var</span> StateModifier = <span class="built_in">require</span>(<span class="string">'./famous/modifiers/StateModifier'</span>);
+  <span class="keyword">var</span> ContainerSurface = <span class="built_in">require</span>(<span class="string">'./famous/surfaces/ContainerSurface'</span>);
+
+  <span class="comment">// create the main context</span>
+  <span class="keyword">var</span> mainContext = Engine.createContext();
+
+  <span class="keyword">var</span> surface = <span class="keyword">new</span> Surface({
+     size: [<span class="literal">undefined</span>, <span class="literal">undefined</span>],
+     properties: {
+       backgroundColor: <span class="string">'blue'</span>,
+       color: <span class="string">'red'</span>,
+     }
+  });
+
+  mainContext.add(surface);
+});
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.wundercode.net/2014/04/23/famous-js-breaks-without-css-file/" data-id="0687d88b5mkpu6qx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-how-does-requestpipe(response)-work" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/03/21/how-does-requestpipe(response)-work/" class="article-date">
@@ -106,7 +166,7 @@ readStream.pipe(writeStream);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2014/03/21/how-does-requestpipe(response)-work/" data-id="5xnrbzm7x3vppsg6" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2014/03/21/how-does-requestpipe(response)-work/" data-id="v5lu9sdxkecpv20i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express, node/">express, node</a></li></ul>
@@ -346,7 +406,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2014/03/19/middleware-in-nodejs/" data-id="tenvdhnuv2n4i15h" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2014/03/19/middleware-in-nodejs/" data-id="y0iry3mtjeppmvf9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/middleware/">middleware</a></li></ul>
@@ -398,7 +458,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2014/03/11/how-does-expressstatic()-work/" data-id="kmyazipt77ywvoxd" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2014/03/11/how-does-expressstatic()-work/" data-id="ozehtg1mia2vfkp2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/express/">express</a></li></ul>
@@ -439,7 +499,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2013/03/04/transistors/" data-id="m5la3w3qwyyq4jbg" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2013/03/04/transistors/" data-id="4spgrd0qsy8pi58e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hardware/">hardware</a></li></ul>
@@ -481,7 +541,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2013/03/04/random-access-memory-(ram)/" data-id="w0kocg8n2ac8rjk0" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2013/03/04/random-access-memory-(ram)/" data-id="kvr7mzhm0otr2fi7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hardware/">hardware</a></li></ul>
@@ -522,7 +582,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://blog.wundercode.net/2013/02/13/why-partnerships-are-sometimes-crappy/" data-id="0fmkep8atlv24y68" class="article-share-link">Share</a>
+      <a data-url="http://blog.wundercode.net/2013/02/13/why-partnerships-are-sometimes-crappy/" data-id="1w2icq0z6idiakfy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -561,7 +621,7 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03">March 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02">February 2013</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03">March 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03">March 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02">February 2013</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -571,6 +631,10 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2014/04/23/famous-js-breaks-without-css-file/">Famous JS breaks without CSS File</a>
+          </li>
         
           <li>
             <a href="/2014/03/21/how-does-requestpipe(response)-work/">How does request.pipe(response) work?</a>
@@ -586,10 +650,6 @@ app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span clas
         
           <li>
             <a href="/2013/03/04/transistors/">Transistors</a>
-          </li>
-        
-          <li>
-            <a href="/2013/03/04/random-access-memory-(ram)/">Random Access Memory (RAM)</a>
           </li>
         
       </ul>
